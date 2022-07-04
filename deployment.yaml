@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pg
+  name: pg
+  namespace: jpc-testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg
+  template:
+    metadata:
+      labels:
+        app: pg
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: 'pg'
+          image: 'postgres:13-bullseye'
+          name: pg
+          ports:
+            - containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              memory: 512Mi

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pg
+  name: pg
+  namespace: jpc-testing
+spec:
+  ports:
+    - name: http
+      port: 5432
+  selector:
+    app: pg

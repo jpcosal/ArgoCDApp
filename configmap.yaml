@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: dummy
+kind: ConfigMap
+metadata:
+  name: pg
+  namespace: jpc-testing
